@@ -1,0 +1,47 @@
+#!/bin/bash
+# while-menu2:a menu dirven system information program
+DELAY=3 #Number of seconds to display results
+while true; do
+    clear
+cat <<_eof
+        please Select:
+        1.Display System Information
+        2.Display Disk Space
+        3.Display Home Space Utilization
+        0.Quit
+_eof
+#before the _eof it don't any other symbol, otherwise the warning 
+    read -p "Enter selection [0-3] > "
+    if [[ $REPLY =~ ^[0-3]$ ]]; then
+        if [[ $REPLY == 1 ]]; then
+        echo "Hostname: $HOSTNAME"
+        uptime
+        sleep $DELAY
+        continue
+    fi
+    if [[ $REPLY == 2 ]]; then
+        df -h
+        sleep $DELAY
+        continue
+    fi
+    if [[ $REPLY == 3 ]]; then
+        if [[ $(id -u) -eq 0 ]]; then
+            echo "Home Space Utilization (All Users)"
+            du -sh /home/*
+        else 
+            echo "Home space Utilization ($USER)"
+            du -sh $HOME
+        fi
+        sleep $DELAY
+        continue
+    fi
+    if [[ $REPLY == 0 ]]; then
+        break
+    fi
+    else
+        echo "Invalid entry"
+        sleep $DEPLAY
+    fi
+done
+echo "Program terminated"
+

@@ -1,0 +1,71 @@
+#!/bin/bash
+# test-string:evaluate the value of a string 
+ANSWER=maybe
+if [ -z "$ANSWER" ] ; then
+    echo "There is no answer." >&2
+    exit 1
+fi
+if [ "$ANSWER" = "yes" ]; then
+    echo "The answer is YES."
+elif [ "$ANSWER"="no" ]; then
+    echo "The answer is NO."
+elif [ "$ANSWER" = "maybe" ]; then
+    echo "The answer is MAYBE."
+else
+    echo "The answer is UNKNOWN."
+fi
+
+#test-integer:evaluate the value of an integer.
+INT=-5
+if [ -z "$INT" ]; then
+    echo "INT is empty." >&2
+    exit 1
+fi
+if [ $INT -eq 0 ]; then
+    echo "INT is zero."
+else
+    if [ $INT -lt 0 ]; then 
+        echo "INT is negative."
+    else
+        echo "INT is positive."
+    fi
+    if [ $((INT % 2)) -eq 0 ];then
+        echo "INT is even."
+    else
+        echo "INT is odd."
+    fi
+fi
+
+#test-integer2 and read-integer
+echo -n "Please enter an integer ->"
+read INT 
+if [[ "$INT" =~ ^-?[0-9]+$ ]] ; then
+    if [ $INT -eq 0 ]; then
+        echo "INT is zero."
+    else
+        if [ $INT -lt 0 ]; then   # if((INT < 0)); then
+            echo "INT is negative."
+        else
+            echo "INT is positive."
+        fi
+        if [ $((INT % 2)) -eq 0 ];then
+            echo "INT is even."
+        else
+            echo "INT is odd."
+        fi
+    fi
+else 
+    echo "INT is not an integer." >&2
+    exit 
+fi
+        
+    
+
+
+
+
+
+
+
+
+
